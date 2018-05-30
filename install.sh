@@ -86,4 +86,48 @@ echo "
 
 partnum=$(grep -c "$device[0-9]" /proc/partitions)
 
-sudo mkfs.ext4 "/dev/sda$partnum"
+sudo mkfs.ext4 "/dev/$device$partnum"
+
+sudo mount "/dev/$device$partnum" /mnt
+
+echo "
+  ____              _       _                   
+ |  _ \            | |     | |                  
+ | |_) | ___   ___ | |_ ___| |_ _ __ __ _ _ __  
+ |  _ < / _ \ / _ \| __/ __| __| '__/ _' | '_ \ 
+ | |_) | (_) | (_) | |_\__ \ |_| | | (_| | |_) |
+ |____/ \___/ \___/ \__|___/\__|_|  \__,_| .__/ 
+                                         | |    
+                                         |_|    
+"
+
+pacstrap /mnt base base-devel
+
+genfstab -U /mnt >> /mnt/etc/fstab
+
+arch-chroot /mnt
+
+ln -sf /usr/share/zoneinfo/Europe/Athens /etc/localtime 
+
+sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+sed -i 's/# el_GR.UTF-8 UTF-8/el_GR.UTF-8 UTF-8/' /etc/locale.gen
+
+locale-gen
+
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+
+export LANG=en_US.UTF-8
+
+echo "$hostname" > /etc/hostname
+
+pacman -S grub os-prober
+grub-install "/dev/$device$partnum"
+grub-mkconfig -o /boot/grub/grub.cfg
+
+echo "$password1" | passwd --stdin
+
+useradd -m -G users,wheel -s /bin/bash "$username"
+
+echo "$password1" | passwd "$username" --stdin
+
+sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/locale.gen
