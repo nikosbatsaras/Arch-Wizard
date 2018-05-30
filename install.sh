@@ -21,13 +21,13 @@ echo "Fill in the necessary information before installation begins:"
 
 echo; echo
 
-read    -p "Installation Device: "  device
-read    -p "Partition Size: "       partsize
-read    -p "Hostname: "             hostname
-read    -p "Username: "             username
-read -s -p "Password: "             password1
+read    -p "Installation Device: /dev/"  device
+read    -p "Partition Size: "            partsize
+read    -p "Hostname: "                  hostname
+read    -p "Username: "                  username
+read -s -p "Password: "                  password1
 echo
-read -s -p "Retype Password: "      password2
+read -s -p "Retype Password: "           password2
 
 if [ ! "$password1" = "$password2" ]
 then
@@ -68,4 +68,22 @@ echo             # Set default partition number
 echo             # First sector (Accept default: 1)
 echo "$partsize" # Last sector (Accept default: varies)
 echo 'w'         # Write changes
-) | sudo fdisk "$device"
+) | sudo fdisk "/dev/$device"
+
+sudo partprobe "/dev/$device"
+
+echo "
+
+  _____           _        _ _ _                         ______ _ _                     _                 
+ |_   _|         | |      | | (_)                       |  ____(_) |                   | |                
+   | |  _ __  ___| |_ __ _| | |_ _ __   __ _     __ _   | |__   _| | ___  ___ _   _ ___| |_ ___ _ __ ___  
+   | | | '_ \/ __| __/ _' | | | | '_ \ / _' |   / _' |  |  __| | | |/ _ \/ __| | | / __| __/ _ \ '_ ' _ \ 
+  _| |_| | | \__ \ || (_| | | | | | | | (_| |  | (_| |  | |    | | |  __/\__ \ |_| \__ \ ||  __/ | | | | |
+ |_____|_| |_|___/\__\__,_|_|_|_|_| |_|\__, |   \__,_|  |_|    |_|_|\___||___/\__, |___/\__\___|_| |_| |_|
+                                        __/ |                                  __/ |                      
+                                       |___/                                  |___/                       
+"
+
+partnum=$(grep -c "$device[0-9]" /proc/partitions)
+
+sudo mkfs.ext4 "/dev/sda$partnum"
