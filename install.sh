@@ -17,12 +17,9 @@ configurations found at: https://github.com/nickbatsaras"
 
 echo
 
-echo "The installation process can go unattended."
-echo
 echo "Fill in the necessary information before installation begins:"
 
-echo
-echo
+echo; echo
 
 read    -p "Installation Device: "  device
 read    -p "Partition Size: "       partsize
@@ -40,4 +37,35 @@ then
 	exit 1
 fi
 
-echo
+echo -n "
+
+  _____           _   _       _             _             
+ |  __ \         | | (_)     (_)           (_)            
+ | |__) |_ _ _ __| |_ _ _ __  _  ___  _ __  _ _ __   __ _ 
+ |  ___/ _' | '__| __| | '_ \| |/ _ \| '_ \| | '_ \ / _' |
+ | |  | (_| | |  | |_| | | | | | (_) | | | | | | | | (_| |
+ |_|   \__,_|_|   \__|_|_| |_|_|\___/|_| |_|_|_| |_|\__, |
+                                                     __/ |
+                                                    |___/
+"
+echo '
+  _____             _          
+ |  __ \           (_)         
+ | |  | | _____   ___  ___ ___ 
+ | |  | |/ _ \ \ / / |/ __/ _ \
+ | |__| |  __/\ V /| | (_|  __/
+ |_____/ \___| \_/ |_|\___\___|
+                               
+                      
+'
+
+sleep 2
+
+(
+echo 'n'         # Add new partition
+echo 'p'         # Make new partition primary
+echo             # Set default partition number
+echo             # First sector (Accept default: 1)
+echo "$partsize" # Last sector (Accept default: varies)
+echo 'w'         # Write changes
+) | sudo fdisk "$device"
