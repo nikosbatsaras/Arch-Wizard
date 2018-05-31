@@ -67,6 +67,8 @@ echo 'p'         # Make new partition primary
 echo             # Set default partition number
 echo             # First sector (Accept default: 1)
 echo "$partsize" # Last sector (Accept default: varies)
+echo 'a'         # Mark partition bootable
+echo             # Pick default partition number
 echo 'w'         # Write changes
 ) | sudo fdisk "/dev/$device"
 
@@ -105,4 +107,11 @@ pacstrap /mnt base base-devel
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-arch-chroot /mnt chroot.sh
+cp chroot.sh /mnt
+cp rice.sh   /mnt
+
+arch-chroot /mnt bash chroot.sh "$username" "$password1" "$device" "$hostname" "$partnum"
+
+echo; echo
+echo "  Installation complete! You can now reboot ..."
+echo; echo
