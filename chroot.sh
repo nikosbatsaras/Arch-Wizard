@@ -44,7 +44,7 @@ echo "
                                                       
 "
 
-pacman -S grub os-prober
+pacman -S grub os-prober --noconfirm
 
 grub-install "/dev/$device"
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -85,9 +85,9 @@ echo "
                        |_|             
 "
 
-pacman -S xorg-server xorg-xinit wget dialog wpa_supplicant bash-completion
-pacman -S xf86-video-intel
-pacman -S xf86-input-synaptics
+pacman -S xorg-server xorg-xinit wget dialog wpa_supplicant bash-completion --noconfirm
+pacman -S xf86-video-intel --noconfirm
+pacman -S xf86-input-synaptics --noconfirm
 
 echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
