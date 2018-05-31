@@ -88,9 +88,9 @@ echo "
 
 partnum=$(grep -c "$device[0-9]" /proc/partitions)
 
-sudo mkfs.ext4 "/dev/$device$partnum"
+mkfs.ext4 "/dev/$device$partnum"
 
-sudo mount "/dev/$device$partnum" /mnt
+mount "/dev/$device$partnum" /mnt
 
 echo "
   ____              _       _                   
@@ -107,10 +107,15 @@ pacstrap /mnt base base-devel
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
+wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/chroot.sh
+wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/rice.sh
+
 cp chroot.sh /mnt
 cp rice.sh   /mnt
 
 arch-chroot /mnt bash chroot.sh "$username" "$password1" "$device" "$hostname" "$partnum"
+
+umount /mnt
 
 echo; echo
 echo "  Installation complete! You can now reboot ..."

@@ -1,10 +1,25 @@
 #!/usr/bin/env bash
 
-username="$username"
-password="$password1"
-device="$device"
-hostname="$hostname"
-partnum="$partnum"
+username="$1"
+password="$2"
+device="$3"
+hostname="$4"
+partnum="$5"
+
+echo '
+  _______ _                         
+ |__   __(_)                  ___   
+    | |   _ _ __ ___   ___   ( _ )  
+    | |  | | "_ " _ \ / _ \  / _ \/\
+    | |  | | | | | | |  __/ | (_>  <
+  _ |_|  |_|_| |_| |_|\___|  \___/\/
+ | |                   | |          
+ | |     ___   ___ __ _| | ___  ___ 
+ | |    / _ \ / __/ _, | |/ _ \/ __|
+ | |___| (_) | (_| (_| | |  __/\__ \
+ |______\___/ \___\__,_|_|\___||___/
+                                    
+'
 
 ln -sf /usr/share/zoneinfo/Europe/Athens /etc/localtime 
 
@@ -19,9 +34,31 @@ export LANG=en_US.UTF-8
 
 echo "$hostname" > /etc/hostname
 
+echo "
+  ____              _   _                 _           
+ |  _ \            | | | |               | |          
+ | |_) | ___   ___ | |_| | ___   __ _  __| | ___ _ __ 
+ |  _ < / _ \ / _ \| __| |/ _ \ / _' |/ _' |/ _ \ '__|
+ | |_) | (_) | (_) | |_| | (_) | (_| | (_| |  __/ |   
+ |____/ \___/ \___/ \__|_|\___/ \__,_|\__,_|\___|_|   
+                                                      
+"
+
 pacman -S grub os-prober
+
 grub-install "/dev/$device"
 grub-mkconfig -o /boot/grub/grub.cfg
+
+echo "
+  _    _                  _____             __ _       
+ | |  | |                / ____|           / _(_)      
+ | |  | |___  ___ _ __  | |     ___  _ __ | |_ _  __ _ 
+ | |  | / __|/ _ \ '__| | |    / _ \| '_ \|  _| |/ _' |
+ | |__| \__ \  __/ |    | |___| (_) | | | | | | | (_| |
+  \____/|___/\___|_|     \_____\___/|_| |_|_| |_|\__, |
+                                                  __/ |
+                                                 |___/ 
+"
 
 echo "root:$password" | chpasswd
 
@@ -58,4 +95,4 @@ su - "$username" -c "bash /rice.sh"
 
 sed -i "/$username ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
 
-exit
+exit # exit chroot

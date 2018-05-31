@@ -4,7 +4,7 @@ the live media, connect to the internet, execute the following command and enter
 information. The script should do the rest.
 
 ```bash
-bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/install.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/bootstrap.sh -O -)"
 ```
 
 # Notes
