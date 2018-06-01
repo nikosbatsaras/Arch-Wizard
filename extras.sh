@@ -16,6 +16,10 @@ extras=(                       \
 	dmenu                  \
 	networkmanager         \
 	network-manager-applet \
+	sxiv                   \
+	zathura                \
+	keepassx2              \
+	unzip                  \
 )
 
 for util in ${extras[@]}

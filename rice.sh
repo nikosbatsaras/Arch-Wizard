@@ -19,5 +19,3 @@ bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/dotfiles/master/t
 bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/dotfiles/master/vim/install.sh -O -)"
 bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/dotfiles/master/ranger/install.sh -O -)"
 bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/dotfiles/master/git/install.sh -O -)"
-
-sudo touch /etc/i3/config
