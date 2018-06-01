@@ -20,4 +20,4 @@ bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/dotfiles/master/v
 bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/dotfiles/master/ranger/install.sh -O -)"
 bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/dotfiles/master/git/install.sh -O -)"
 
-touch /etc/i3/config
+sudo touch /etc/i3/config

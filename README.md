@@ -14,7 +14,7 @@ An effort to automate the process of manually:
 Before proceeding:
 - You need an MBR partition table (no GPT support yet)
 - The script automatically partitions the device you specify
-- Ext4 is used and the filesystem of the new partition
+- Ext4 is used as the filesystem of the new partition
 - Make sure your partition numbers are contiguous
 
 Example lsblk output should be similar to this:
@@ -24,7 +24,7 @@ sda
 └─sda2
 └─sda3
 ```
-and **not** like this:
+and **not** to this:
 ```
 sda
 └─sda1
