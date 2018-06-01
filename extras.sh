@@ -20,9 +20,13 @@ extras=(                       \
 	zathura                \
 	keepassx2              \
 	unzip                  \
+	htop                   \
+	openssh                \
 )
 
 for util in ${extras[@]}
 do
 	sudo pacman -S "$util" --noconfirm
 done
+
+sudo systemctl enable NetworkManager.service

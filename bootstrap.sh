@@ -16,12 +16,12 @@ configurations found at: https://github.com/nickbatsaras"
 
 echo
 
-echo "Fill in the necessary information before installation begins:"
+echo "Fill out some information before installation begins:"
 
 echo; echo
 
 read    -p "Installation Device: /dev/"  device
-read    -p "Partition Size: "            partsize
+read    -p "Partition Size (e.g. 15G): " partsize
 read    -p "Hostname: "                  hostname
 read    -p "Username: "                  username
 read -s -p "Password: "                  password1
@@ -61,28 +61,36 @@ echo '
 sleep 2
 
 (
-echo 'n'         # Add new partition
-echo 'p'         # Make new partition primary
-echo             # Set default partition number
-echo             # First sector (Accept default: 1)
-echo "$partsize" # Last sector (Accept default: varies)
-echo 'a'         # Mark partition bootable
-echo             # Pick default partition number
-echo 'w'         # Write changes
+echo 'n'          # Add new partition
+echo 'p'          # Make new partition primary
+echo              # Set default partition number
+echo              # First sector (Accept default: 1)
+echo "+$partsize" # Last sector (Accept default: varies)
+echo 'a'          # Mark partition bootable
+echo              # Pick default partition number
+echo 'w'          # Write changes
 ) | sudo fdisk "/dev/$device"
 
 sudo partprobe "/dev/$device"
 
 echo "
 
-  _____           _        _ _ _                         ______ _ _                     _                 
- |_   _|         | |      | | (_)                       |  ____(_) |                   | |                
-   | |  _ __  ___| |_ __ _| | |_ _ __   __ _     __ _   | |__   _| | ___  ___ _   _ ___| |_ ___ _ __ ___  
-   | | | '_ \/ __| __/ _' | | | | '_ \ / _' |   / _' |  |  __| | | |/ _ \/ __| | | / __| __/ _ \ '_ ' _ \ 
-  _| |_| | | \__ \ || (_| | | | | | | | (_| |  | (_| |  | |    | | |  __/\__ \ |_| \__ \ ||  __/ | | | | |
- |_____|_| |_|___/\__\__,_|_|_|_|_| |_|\__, |   \__,_|  |_|    |_|_|\___||___/\__, |___/\__\___|_| |_| |_|
-                                        __/ |                                  __/ |                      
-                                       |___/                                  |___/                       
+  _____           _        _ _ _                      
+ |_   _|         | |      | | (_)                     
+   | |  _ __  ___| |_ __ _| | |_ _ __   __ _     __ _ 
+   | | | '_ \/ __| __/ _' | | | | '_ \ / _' |   / _' |
+  _| |_| | | \__ \ || (_| | | | | | | | (_| |  | (_| |
+ |_____|_| |_|___/\__\__,_|_|_|_|_| |_|\__, |   \__,_|
+                                        __/ |         
+                                       |___/          
+  ______ _ _                     _                 
+ |  ____(_) |                   | |                
+ | |__   _| | ___  ___ _   _ ___| |_ ___ _ __ ___  
+ |  __| | | |/ _ \/ __| | | / __| __/ _ \ '_ ' _ \ 
+ | |    | | |  __/\__ \ |_| \__ \ ||  __/ | | | | |
+ |_|    |_|_|\___||___/\__, |___/\__\___|_| |_| |_|
+                        __/ |                      
+                       |___/                       
 "
 
 partnum=$(grep -c "$device[0-9]" /proc/partitions)
