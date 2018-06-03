@@ -18,11 +18,14 @@ extras=(                       \
 	network-manager-applet \
 	sxiv                   \
 	zathura                \
+	zathura-pdf-poppler    \
 	keepassx2              \
 	unzip                  \
 	htop                   \
 	openssh                \
 	bash-completion        \
+	texlive-core           \
+	arandr                 \
 )
 
 for util in ${extras[@]}
