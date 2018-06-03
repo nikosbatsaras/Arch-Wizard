@@ -29,7 +29,7 @@ and **not** to this:
 sda
 └─sda1
 └─sda2
-└─sda5
+└─sda4
 ```
 
 ## Installation
