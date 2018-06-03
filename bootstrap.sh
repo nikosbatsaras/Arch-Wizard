@@ -60,16 +60,37 @@ echo '
 
 sleep 2
 
-(
-echo 'n'          # Add new partition
-echo 'p'          # Make new partition primary
-echo              # Set default partition number
-echo              # First sector (Accept default: 1)
-echo "+$partsize" # Last sector (Accept default: varies)
-echo 'a'          # Mark partition bootable
-echo              # Pick default partition number
-echo 'w'          # Write changes
-) | sudo fdisk "/dev/$device"
+primaries=$(parted -s "/dev/$device" print | grep -c 'primary')
+
+if [ "$primaries" -le 2 ]
+then
+	(
+	echo 'n'          # Add new partition
+	echo 'p'          # Make new partition primary
+	echo              # Set default partition number
+	echo              # First sector (Accept default: 1)
+	echo "+$partsize" # Last sector (Accept default: varies)
+	echo 'a'          # Mark partition bootable
+	echo              # Pick default partition number
+	echo 'w'          # Write changes
+	) | fdisk "/dev/$device"
+elif [ "$primaries" = 3 ]
+then
+	(
+	echo 'n'          # Add new partition
+	echo 'p'          # Make new partition primary
+	echo              # First sector (Accept default: 1)
+	echo "+$partsize" # Last sector (Accept default: varies)
+	echo 'a'          # Mark partition bootable
+	echo              # Pick default partition number
+	echo 'w'          # Write changes
+	) | fdisk "/dev/$device"
+else
+	echo; echo
+	echo "Can't create more primary partitions"
+	echo
+	exit 1
+fi
 
 sudo partprobe "/dev/$device"
 
