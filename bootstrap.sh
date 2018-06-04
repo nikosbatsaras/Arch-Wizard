@@ -58,7 +58,16 @@ echo '
                       
 '
 
-sleep 2
+parttable=$(parted "/dev/$device" print | grep 'Partition Table' | awk '{print $3}')
+
+if [ ! "$parttable" = "msdos" ]
+then
+	echo; echo
+	echo "MBR partition table needed"
+	echo "$parttable found"
+	echo
+	exit 1
+fi
 
 primaries=$(parted -s "/dev/$device" print | grep -c 'primary')
 
