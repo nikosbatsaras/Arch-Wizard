@@ -150,11 +150,11 @@ wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/chroot.sh
 wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/rice.sh
 wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/extras.sh
 
-cp chroot.sh /mnt
-cp rice.sh   /mnt
-cp extras.sh /mnt
+cp chroot.sh rice.sh extras.sh /mnt
 
 arch-chroot /mnt bash chroot.sh "$username" "$password1" "$device" "$hostname" "$partnum"
+
+rm /mnt/chroot.sh /mnt/rice.sh /mnt/extras.sh
 
 umount /mnt
 
