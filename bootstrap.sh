@@ -127,7 +127,7 @@ echo "
 
 partnum=$(grep -c "$device[0-9]" /proc/partitions)
 
-mkfs.ext4 "/dev/$device$partnum"
+mkfs.ext4 -F "/dev/$device$partnum"
 
 mount "/dev/$device$partnum" /mnt
 
