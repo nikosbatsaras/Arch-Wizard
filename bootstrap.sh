@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+clear
+
 echo "
                     _       _____           _        _  _           
      /\            | |     |_   _|         | |      | || |          
@@ -18,7 +20,7 @@ echo
 
 echo "Fill out some information before installation begins:"
 
-echo; echo
+echo; echo; lsblk; echo; echo
 
 read    -p "Installation Device: /dev/"  device
 read    -p "Partition Size (e.g. 15G): " partsize
