@@ -25,6 +25,8 @@ extras=(                       \
 	openssh                \
 	bash-completion        \
 	texlive-core           \
+	texlive-latexextra     \
+	texlive-fontsextra     \
 	arandr                 \
 )
 
