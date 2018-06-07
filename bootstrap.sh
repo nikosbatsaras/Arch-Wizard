@@ -103,7 +103,7 @@ else
 	exit 1
 fi
 
-sudo partprobe "/dev/$device"
+partprobe "/dev/$device"
 
 echo "
 
