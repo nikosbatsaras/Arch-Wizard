@@ -19,14 +19,10 @@ extras=(                       \
 	sxiv                   \
 	zathura                \
 	zathura-pdf-poppler    \
-	keepassx2              \
 	unzip                  \
 	htop                   \
 	openssh                \
 	bash-completion        \
-	texlive-core           \
-	texlive-latexextra     \
-	texlive-fontsextra     \
 	arandr                 \
 )
 
