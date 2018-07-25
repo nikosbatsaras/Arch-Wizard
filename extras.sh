@@ -19,6 +19,7 @@ extras=(                       \
 	sxiv                   \
 	zathura                \
 	zathura-pdf-poppler    \
+	zip                    \
 	unzip                  \
 	htop                   \
 	openssh                \

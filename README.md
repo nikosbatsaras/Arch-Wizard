@@ -56,6 +56,3 @@ bash -c "$(wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/maste
 
 It will ask you for some basic info at start and then the script should do the
 rest.
-
-# Notes
-- Still experimental
