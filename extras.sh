@@ -25,6 +25,7 @@ extras=(                       \
 	openssh                \
 	bash-completion        \
 	arandr                 \
+	ctags                  \
 )
 
 for util in ${extras[@]}
