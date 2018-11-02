@@ -136,7 +136,7 @@ wget https://raw.githubusercontent.com/nickbatsaras/Arch-Wizard/master/extras.sh
 
 cp chroot.sh rice.sh extras.sh /mnt
 
-arch-chroot /mnt bash chroot.sh "$username" "$password1" "$device" "$hostname" "$partnum"
+arch-chroot /mnt bash chroot.sh "$username" "$password1" "$device" "$hostname"
 
 rm /mnt/chroot.sh /mnt/rice.sh /mnt/extras.sh
 

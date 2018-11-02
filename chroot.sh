@@ -4,7 +4,6 @@ username="$1"
 password="$2"
 device="$3"
 hostname="$4"
-partnum="$5"
 
 echo "  _______ _                           ";
 echo " |__   __(_)                  ___     ";
