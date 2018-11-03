@@ -111,7 +111,12 @@ echo " |_|    |_|_|\___||___/\__, |___/\__\___|_| |_| |_|     ";
 echo "                        __/ |                           ";
 echo "                       |___/                            ";
 
-partnum=$(grep -c "$device[0-9]" /proc/partitions)
+if [[ "$device" =~ ^nvme.*$ ]]
+then
+	partnum="p$(grep -c "$device" /proc/partitions)"
+else
+	partnum=$(grep -c "$device[0-9]" /proc/partitions)
+fi
 
 mkfs.ext4 -F "/dev/$device$partnum"
 
