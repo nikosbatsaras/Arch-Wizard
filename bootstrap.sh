@@ -113,7 +113,7 @@ echo "                       |___/                            ";
 
 if [[ "$device" =~ ^nvme.*$ ]]
 then
-	partnum="p$(grep -c "$device" /proc/partitions)"
+	partnum=p$(grep -c "${device}p[0-9]" /proc/partitions)
 else
 	partnum=$(grep -c "$device[0-9]" /proc/partitions)
 fi
