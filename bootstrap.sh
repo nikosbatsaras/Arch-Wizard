@@ -131,6 +131,15 @@ echo " |____/ \___/ \___/ \__|___/\__|_|  \__,_| .__/  ";
 echo "                                         | |     ";
 echo "                                         |_|     ";
 
+sed -i '7iServer = http://ftp.otenet.gr/linux/archlinux/$repo/os/$arch'               /etc/pacman.d/mirrorlist
+sed -i '7iServer = http://ftp.ntua.gr/pub/linux/archlinux/$repo/os/$arch'             /etc/pacman.d/mirrorlist
+sed -i '7iServer = http://foss.aueb.gr/mirrors/linux/archlinux/$repo/os/$arch'        /etc/pacman.d/mirrorlist
+sed -i '7iServer = http://mirrors.myaegean.gr/linux/archlinux/$repo/os/$arch'         /etc/pacman.d/mirrorlist
+sed -i '7iServer = http://ftp.cc.uoc.gr/mirrors/linux/archlinux/$repo/os/$arch'       /etc/pacman.d/mirrorlist
+sed -i '12iServer = http://mi.mirror.garr.it/mirrors/archlinux/$repo/os/$arch'        /etc/pacman.d/mirrorlist
+sed -i '13iServer = http://ftp.hosteurope.de/mirror/ftp.archlinux.org/$repo/os/$arch' /etc/pacman.d/mirrorlist
+sed -i '14iServer = http://mirror.cyberbits.eu/archlinux/$repo/os/$arch'              /etc/pacman.d/mirrorlist
+
 pacstrap /mnt base base-devel
 
 genfstab -U /mnt >> /mnt/etc/fstab
