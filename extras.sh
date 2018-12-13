@@ -24,7 +24,8 @@ extras=(                       \
 	bash-completion        \
 	arandr                 \
 	ctags                  \
-)
+	cdrtools               \
+	)
 
 for util in ${extras[@]}
 do
@@ -35,6 +36,4 @@ sudo systemctl enable NetworkManager.service
 
 git clone https://aur.archlinux.org/ttf-ms-fonts.git
 
-cd ttf-ms-fonts  && makepkg -si --noconfirm && cd ..
-
-rm -rf ttf-ms-fonts/
+cd ttf-ms-fonts  && makepkg -si --noconfirm && cd .. && rm -rf ttf-ms-fonts/
