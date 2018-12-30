@@ -37,3 +37,5 @@ sudo systemctl enable NetworkManager.service
 git clone https://aur.archlinux.org/ttf-ms-fonts.git
 
 cd ttf-ms-fonts  && makepkg -si --noconfirm && cd .. && rm -rf ttf-ms-fonts/
+
+echo "blacklist pcspkr" | sudo tee --append /etc/modprobe.d/nobeep.conf
