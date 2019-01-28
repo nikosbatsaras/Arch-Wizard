@@ -25,6 +25,8 @@ extras=(                       \
 	arandr                 \
 	ctags                  \
 	cdrtools               \
+	xorg-xsetroot          \
+	notification-daemon    \
 	)
 
 for util in ${extras[@]}
