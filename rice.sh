@@ -9,7 +9,7 @@ echo " |_|  \_\_|\___|_|_| |_|\__, | (_) ";
 echo "                         __/ |     ";
 echo "                        |___/      ";
 
-repo='https://raw.githubusercontent.com/nickbatsaras/dotfiles/master'
+repo='https://raw.githubusercontent.com/nikosbatsaras/dotfiles/master'
 
 bash -c "$(wget $repo/X11/install.sh      -O -)"
 bash -c "$(wget $repo/bin/install.sh      -O -)"
