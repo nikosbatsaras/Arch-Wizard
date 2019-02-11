@@ -24,6 +24,7 @@ extras=(                       \
 	bash-completion        \
 	arandr                 \
 	ctags                  \
+	openvpn                \
 	cdrtools               \
 	xorg-xsetroot          \
 	notification-daemon    \
