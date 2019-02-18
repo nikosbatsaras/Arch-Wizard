@@ -17,6 +17,7 @@ extras=(                       \
 	sxiv                   \
 	zathura                \
 	zathura-pdf-poppler    \
+	bc                     \
 	zip                    \
 	unzip                  \
 	htop                   \
