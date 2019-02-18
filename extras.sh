@@ -28,6 +28,7 @@ extras=(                       \
 	openvpn                \
 	cdrtools               \
 	xorg-xsetroot          \
+	xorg-xbacklight        \
 	notification-daemon    \
 	)
 
