@@ -10,23 +10,23 @@ echo "                                 ";
 echo "                                 ";
 
 extras=(                       \
-	firefox                \
 	dmenu                  \
+	firefox                \
 	networkmanager         \
 	network-manager-applet \
-	sxiv                   \
-	zathura                \
-	zathura-pdf-poppler    \
+	bash-completion        \
+	xorg-xprop             \
 	bc                     \
 	zip                    \
 	unzip                  \
 	htop                   \
 	openssh                \
-	bash-completion        \
+	openvpn                \
 	arandr                 \
 	ctags                  \
-	openvpn                \
 	cdrtools               \
+	cups                   \
+	system-config-printer  \
 	)
 
 for util in ${extras[@]}
@@ -35,6 +35,7 @@ do
 done
 
 sudo systemctl enable NetworkManager.service
+sudo systemctl enable org.cups.cupsd.service
 
 git clone https://aur.archlinux.org/ttf-ms-fonts.git
 
