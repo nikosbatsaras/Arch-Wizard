@@ -37,8 +37,10 @@ done
 sudo systemctl enable NetworkManager.service
 sudo systemctl enable org.cups.cupsd.service
 
+git clone https://aur.archlinux.org/yay.git
 git clone https://aur.archlinux.org/ttf-ms-fonts.git
 
+cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay
 cd ttf-ms-fonts && makepkg -si --noconfirm && cd .. && rm -rf ttf-ms-fonts/
 
 echo "blacklist pcspkr" | sudo tee --append /etc/modprobe.d/nobeep.conf
