@@ -84,7 +84,7 @@ echo "                       |_|             ";
 pacman -S xorg-server xorg-xinit     --noconfirm
 pacman -S wget dialog wpa_supplicant --noconfirm
 pacman -S xf86-video-intel           --noconfirm
-pacman -S xf86-input-synaptics       --noconfirm
+pacman -S xf86-input-libinput        --noconfirm
 
 echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
