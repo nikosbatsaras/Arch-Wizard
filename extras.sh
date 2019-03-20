@@ -9,24 +9,16 @@ echo " |______/_/\_\\__|_|  \__,_|___/ ";
 echo "                                 ";
 echo "                                 ";
 
-extras=(                       \
-	dmenu                  \
-	firefox                \
-	networkmanager         \
-	network-manager-applet \
-	bash-completion        \
-	xorg-xprop             \
-	bc                     \
-	zip                    \
-	unzip                  \
-	htop                   \
-	openssh                \
-	openvpn                \
-	arandr                 \
-	ctags                  \
-	cdrtools               \
-	cups                   \
-	system-config-printer  \
+extras=(                                      \
+	firefox                               \
+	zip unzip                             \
+	openssh openvpn                       \
+	arandr xorg-xprop                     \
+	dmenu bash-completion                 \
+	bc htop ctags cdrtools                \
+	bluez bluez-utils                     \
+	cups system-config-printer            \
+	networkmanager network-manager-applet \
 	)
 
 for util in ${extras[@]}
@@ -34,8 +26,9 @@ do
 	sudo pacman -S "$util" --noconfirm
 done
 
-sudo systemctl enable NetworkManager.service
+sudo systemctl enable bluetooth.service
 sudo systemctl enable org.cups.cupsd.service
+sudo systemctl enable NetworkManager.service
 
 git clone https://aur.archlinux.org/yay.git
 git clone https://aur.archlinux.org/ttf-ms-fonts.git
