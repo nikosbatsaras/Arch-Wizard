@@ -10,7 +10,7 @@ echo "                                 ";
 echo "                                 ";
 
 extras=(                                      \
-	firefox                               \
+	firefox thunderbird                   \
 	zip unzip                             \
 	openssh openvpn                       \
 	arandr xorg-xprop                     \
