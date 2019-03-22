@@ -1,13 +1,13 @@
 # Description
 ```
-                                              _      __          ___                  _
-                               /\            | |     \ \        / (_)                | |
-                              /  \   _ __ ___| |__    \ \  /\  / / _ ______ _ _ __ __| |
-                             / /\ \ | '__/ __| '_ \    \ \/  \/ / | |_  / _` | '__/ _` |
-                            / ____ \| | | (__| | | |    \  /\  /  | |/ / (_| | | | (_| |
-                           /_/    \_\_|  \___|_| |_|     \/  \/   |_/___\__,_|_|  \__,_|
-                                                
-                                 Automated Arch Linux Installation & Configuration
+                                          _      __          ___                  _
+                           /\            | |     \ \        / (_)                | |
+                          /  \   _ __ ___| |__    \ \  /\  / / _ ______ _ _ __ __| |
+                         / /\ \ | '__/ __| '_ \    \ \/  \/ / | |_  / _` | '__/ _` |
+                        / ____ \| | | (__| | | |    \  /\  /  | |/ / (_| | | | (_| |
+                       /_/    \_\_|  \___|_| |_|     \/  \/   |_/___\__,_|_|  \__,_|
+                                            
+                             Automated Arch Linux Installation & Configuration
 ```
 
 ## What this project is:
@@ -23,10 +23,10 @@ An effort to automate the process of manually:
 # Setup
 ## Preamble
 Before proceeding:
-- You need an MBR partition table (no GPT support yet)
+- You need an MBR (dos) partition table (no GPT support yet)
 - The script automatically partitions the device you specify
 - Ext4 is used as the filesystem of the new partition
-- Make sure your partition numbers are contiguous
+- **Make sure your partition numbers are contiguous**
 
 Example lsblk output should be similar to this:
 ```

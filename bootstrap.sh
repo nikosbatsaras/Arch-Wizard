@@ -11,8 +11,8 @@ echo " /_/    \_\_|  \___|_| |_|              \/  \/   |_/___\__,_|_|  \__,_|  "
 echo "                                                                         ";
 echo "                                                                         ";
 echo
-echo "                This script will install Arch Linux and apply            ";
-echo "           configurations found at: https://github.com/nikosbatsaras      ";
+echo "              This script will install Arch Linux and apply              ";
+echo "        configurations found at: https://github.com/nikosbatsaras        ";
 echo
 echo
 echo
