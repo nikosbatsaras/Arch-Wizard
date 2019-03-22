@@ -11,6 +11,7 @@ echo "                                 ";
 
 extras=(                                      \
 	firefox thunderbird                   \
+	evince nautilus sxiv                  \
 	zip unzip                             \
 	openssh openvpn                       \
 	arandr xorg-xprop                     \
