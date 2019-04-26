@@ -55,7 +55,7 @@ echo "                                                          ";
 swap_size=$(echo "${root_size} + 1" | bc)
 home_size=$(echo "${swap_size} + ${home_size}" | bc)
 
-parted --script "/dev/${device}" mklabel pgt
+parted --script "/dev/${device}" mklabel msdos
 parted --script "/dev/${device}" mkpart primary            "1MiB" "${root_size}GiB"
 parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
 parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
