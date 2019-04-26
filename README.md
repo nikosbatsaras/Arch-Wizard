@@ -36,7 +36,7 @@ After reading the above, if you still want to proceed:
 - Execute the following command:
 
 ```bash
-bash -c "$(wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/bootstrap.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/dev/bootstrap.sh -O -)"
 ```
 
 It will ask you for some basic info at start and then the script should do the
