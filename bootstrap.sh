@@ -21,6 +21,16 @@ echo "Fill out some information before installation begins:"
 echo; echo; lsblk; echo; echo
 
 read    -p "Installation Device: /dev/"              device
+read    -p "Partition table type (mbr or gpt): "     table_type
+
+if [ ! "$table_type" = "mbr" ] && [ ! "$table_type" = "gpt" ]
+then
+	echo; echo
+	echo "Invalid partition table type."
+	echo
+	exit 1
+fi
+
 read    -p "Root partition size in GBs (e.g. 20G): " root_size
 read    -p "Home partition size in GBs (e.g. 30G): " home_size
 read    -p "Hostname: "                              hostname
@@ -32,7 +42,7 @@ read -s -p "Retype Password: "                       password2
 if [ ! "$password1" = "$password2" ]
 then
 	echo; echo
-	echo "Passwords do not match"
+	echo "Passwords do not match."
 	echo
 	exit 1
 fi
@@ -52,24 +62,49 @@ echo " |_____/ \___| \_/ |_|\___\___|                           ";
 echo "                                                          ";
 echo "                                                          ";
 
-swap_size=$(echo "${root_size} + 1" | bc)
-home_size=$(echo "${swap_size} + ${home_size}" | bc)
+if [ "$table_type" = "mbr" ]
+then
+	swap_size=$(echo "${root_size} + 1" | bc)
+	home_size=$(echo "${swap_size} + ${home_size}" | bc)
 
-parted --script "/dev/${device}" mklabel msdos
-parted --script "/dev/${device}" mkpart primary            "1MiB" "${root_size}GiB"
-parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
-parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
+	parted --script "/dev/${device}" mklabel msdos
+	parted --script "/dev/${device}" mkpart primary            "1MiB" "${root_size}GiB"
+	parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
+	parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
 
-parted --script "/dev/${device}" set 1 boot on
-parted --script "/dev/${device}" set 1 root on
-parted --script "/dev/${device}" set 2 swap on
+	parted --script "/dev/${device}" set 1 boot on
+	parted --script "/dev/${device}" set 1 root on
+	parted --script "/dev/${device}" set 2 swap on
 
-if [[ "$device" =~ ^nvme.*$ ]]; then
-	mkswap "/dev/${device}p2"
-	swapon "/dev/${device}p2"
+	if [[ "$device" =~ ^nvme.*$ ]]; then
+		mkswap "/dev/${device}p2"
+		swapon "/dev/${device}p2"
+	else
+		mkswap "/dev/${device}2"
+		swapon "/dev/${device}2"
+	fi
 else
-	mkswap "/dev/${device}2"
-	swapon "/dev/${device}2"
+	swap_size=$(echo "${root_size} + 1" | bc)
+	home_size=$(echo "${swap_size} + ${home_size}" | bc)
+
+	parted --script "/dev/${device}" mklabel gpt
+	parted --script "/dev/${device}" mkpart primary            "1MiB"            "2MiB"
+	parted --script "/dev/${device}" mkpart primary            "2MiB" "${root_size}GiB"
+	parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
+	parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
+
+	parted --script "/dev/${device}" set 1 bios_grub on
+	parted --script "/dev/${device}" set 2 boot on
+	parted --script "/dev/${device}" set 2 root on
+	parted --script "/dev/${device}" set 3 swap on
+
+	if [[ "$device" =~ ^nvme.*$ ]]; then
+		mkswap "/dev/${device}p3"
+		swapon "/dev/${device}p3"
+	else
+		mkswap "/dev/${device}3"
+		swapon "/dev/${device}3"
+	fi
 fi
 
 partprobe "/dev/$device"
@@ -89,25 +124,49 @@ echo " |_|    |_|_|\___||___/\__, |___/\__\___|_| |_| |_|     ";
 echo "                        __/ |                           ";
 echo "                       |___/                            ";
 
-if [[ "$device" =~ ^nvme.*$ ]]
+if [ "$table_type" = "mbr" ]
 then
-	mkfs.ext4 -F "/dev/${device}p1"
-	mkfs.ext4 -F "/dev/${device}p3"
+	if [[ "$device" =~ ^nvme.*$ ]]
+	then
+		mkfs.ext4 -F "/dev/${device}p1"
+		mkfs.ext4 -F "/dev/${device}p3"
 
-	mount "/dev/${device}p1" /mnt
+		mount "/dev/${device}p1" /mnt
 
-	mkdir /mnt/home
+		mkdir /mnt/home
 
-	mount "/dev/${device}p3" /mnt/home
+		mount "/dev/${device}p3" /mnt/home
+	else
+		mkfs.ext4 -F "/dev/${device}1"
+		mkfs.ext4 -F "/dev/${device}3"
+
+		mount "/dev/${device}1" /mnt
+
+		mkdir /mnt/home
+
+		mount "/dev/${device}3" /mnt/home
+	fi
 else
-	mkfs.ext4 -F "/dev/${device}1"
-	mkfs.ext4 -F "/dev/${device}3"
+	if [[ "$device" =~ ^nvme.*$ ]]
+	then
+		mkfs.ext4 -F "/dev/${device}p2"
+		mkfs.ext4 -F "/dev/${device}p4"
 
-	mount "/dev/${device}1" /mnt
+		mount "/dev/${device}p2" /mnt
 
-	mkdir /mnt/home
+		mkdir /mnt/home
 
-	mount "/dev/${device}3" /mnt/home
+		mount "/dev/${device}p4" /mnt/home
+	else
+		mkfs.ext4 -F "/dev/${device}2"
+		mkfs.ext4 -F "/dev/${device}4"
+
+		mount "/dev/${device}2" /mnt
+
+		mkdir /mnt/home
+
+		mount "/dev/${device}4" /mnt/home
+	fi
 fi
 
 echo "  ____              _       _                    ";
