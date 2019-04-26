@@ -12,9 +12,9 @@
 
 ## What this project is:
 An effort to automate the process of manually:
-- Installing Arch Linux
+- Installing Arch Linux.
 - Installing all the applications i use
-- and configuring those applications the way i prefer
+- and configuring those applications the way i prefer.
 
 ## What this project is *not*:
 - A *generic* Arch Linux installation
@@ -22,11 +22,12 @@ An effort to automate the process of manually:
 
 # Setup
 ## Preamble
-Before proceeding:
-- You need an MBR (dos) partition table (no GPT support yet)
-- The script automatically partitions the device you specify
-- Ext4 is used as the filesystem of the new partition
-- **The installer assumes the device is empty**
+Assumptions:
+- BIOS boot (UEFI support is on the way).
+- **The device is empty.**
+
+Notes:
+- Both MBR and GPT partition layouts are supported.
 
 ## Installation
 After reading the above, if you still want to proceed:
@@ -36,7 +37,7 @@ After reading the above, if you still want to proceed:
 - Execute the following command:
 
 ```bash
-bash -c "$(wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/dev/bootstrap.sh -O -)"
+bash -c "$(wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/bootstrap.sh -O -)"
 ```
 
 It will ask you for some basic info at start and then the script should do the
