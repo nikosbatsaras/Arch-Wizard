@@ -55,8 +55,6 @@ fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-read -p "Press any button ..." tmp
-
 echo "  _    _                  _____             __ _        ";
 echo " | |  | |                / ____|           / _(_)       ";
 echo " | |  | |___  ___ _ __  | |     ___  _ __ | |_ _  __ _  ";

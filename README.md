@@ -23,22 +23,22 @@ An effort to automate the process of manually:
 # Setup
 ## Preamble
 Assumptions:
-- BIOS boot (UEFI support is on the way).
 - **The device is empty.**
 
 Notes:
-- Both MBR and GPT partition layouts are supported.
+- Both BIOS and UEFI are supported.
+- Partition layouts supported:
+  - BIOS/MBR
+  - BIOS/GPT
+  - UEFI/GPT
 
 ## Installation
 After reading the above, if you still want to proceed:
-- Burn an Arch iso to a live media (e.g usb)
-- Boot from that media
-- Connect to the internet
+- Burn an Arch iso to a live media (e.g usb).
+- Boot from that media.
+- Connect to the internet.
 - Execute the following command:
 
 ```bash
 bash -c "$(wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/bootstrap.sh -O -)"
 ```
-
-It will ask you for some basic info at start and then the script should do the
-rest.
