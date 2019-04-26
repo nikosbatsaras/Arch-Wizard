@@ -20,13 +20,14 @@ echo "Fill out some information before installation begins:"
 
 echo; echo; lsblk; echo; echo
 
-read    -p "Installation Device: /dev/"  device
-read    -p "Partition Size (e.g. 15G): " partsize
-read    -p "Hostname: "                  hostname
-read    -p "Username: "                  username
-read -s -p "Password: "                  password1
+read    -p "Installation Device: /dev/"              device
+read    -p "Root partition size in GBs (e.g. 20G): " root_size
+read    -p "Home partition size in GBs (e.g. 30G): " home_size
+read    -p "Hostname: "                              hostname
+read    -p "Username: "                              username
+read -s -p "Password: "                              password1
 echo
-read -s -p "Retype Password: "           password2
+read -s -p "Retype Password: "                       password2
 
 if [ ! "$password1" = "$password2" ]
 then
@@ -51,47 +52,22 @@ echo " |_____/ \___| \_/ |_|\___\___|                           ";
 echo "                                                          ";
 echo "                                                          ";
 
-parttable=$(parted "/dev/$device" print | grep 'Partition Table' | awk '{print $3}')
+swap_size=$(echo "${root_size} + 1" | bc)
+home_size=$(echo "${swap_size} + ${home_size}" | bc)
 
-if [ ! "$parttable" = "msdos" ]
-then
-	echo; echo
-	echo "MBR partition table needed"
-	echo "$parttable found"
-	echo
-	exit 1
-fi
+parted --script "/dev/${device}" mklabel pgt
+parted --script "/dev/${device}" mkpart primary            "1MiB" "${root_size}GiB"
+parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
+parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
 
-primaries=$(parted -s "/dev/$device" print | grep -c 'primary')
+parted --script "/dev/${device}" set 1 boot on
 
-if [ "$primaries" -le 2 ]
-then
-	(
-	echo 'n'          # Add new partition
-	echo 'p'          # Make new partition primary
-	echo              # Set default partition number
-	echo              # First sector (Accept default: 1)
-	echo "+$partsize" # Last sector (Accept default: varies)
-	echo 'a'          # Mark partition bootable
-	echo              # Pick default partition number
-	echo 'w'          # Write changes
-	) | fdisk "/dev/$device"
-elif [ "$primaries" = 3 ]
-then
-	(
-	echo 'n'          # Add new partition
-	echo 'p'          # Make new partition primary
-	echo              # First sector (Accept default: 1)
-	echo "+$partsize" # Last sector (Accept default: varies)
-	echo 'a'          # Mark partition bootable
-	echo              # Pick default partition number
-	echo 'w'          # Write changes
-	) | fdisk "/dev/$device"
+if [[ "$device" =~ ^nvme.*$ ]]; then
+	mkswap "/dev/${device}p2"
+	swapon "/dev/${device}p2"
 else
-	echo; echo
-	echo "Can't create more primary partitions"
-	echo
-	exit 1
+	mkswap "/dev/${device}2"
+	swapon "/dev/${device}2"
 fi
 
 partprobe "/dev/$device"
@@ -113,14 +89,24 @@ echo "                       |___/                            ";
 
 if [[ "$device" =~ ^nvme.*$ ]]
 then
-	partnum=p$(grep -c "${device}p[0-9]" /proc/partitions)
+	mkfs.ext4 -F "/dev/${device}p1"
+	mkfs.ext4 -F "/dev/${device}p3"
+
+	mount "/dev/${device}p1" /mnt
+
+	mkdir /mnt/home
+
+	mount "/dev/${device}p3" /mnt/home
 else
-	partnum=$(grep -c "$device[0-9]" /proc/partitions)
+	mkfs.ext4 -F "/dev/${device}1"
+	mkfs.ext4 -F "/dev/${device}3"
+
+	mount "/dev/${device}1" /mnt
+
+	mkdir /mnt/home
+
+	mount "/dev/${device}3" /mnt/home
 fi
-
-mkfs.ext4 -F "/dev/$device$partnum"
-
-mount "/dev/$device$partnum" /mnt
 
 echo "  ____              _       _                    ";
 echo " |  _ \            | |     | |                   ";
