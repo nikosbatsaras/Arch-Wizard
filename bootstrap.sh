@@ -131,9 +131,9 @@ pacstrap /mnt base base-devel
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
-wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/chroot.sh
-wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/rice.sh
-wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/extras.sh
+wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/dev/chroot.sh
+wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/dev/rice.sh
+wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/dev/extras.sh
 
 cp chroot.sh rice.sh extras.sh /etc/pacman.d/mirrorlist /mnt
 
