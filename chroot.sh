@@ -89,7 +89,7 @@ pacman -S xf86-input-libinput        --noconfirm
 echo "$username ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 su - "$username" -c "bash /rice.sh"
-su - "$username" -c "bash /extras.sh"
+# su - "$username" -c "bash /extras.sh"
 
 sed -i "/$username ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
 
