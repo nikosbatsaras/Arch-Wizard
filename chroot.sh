@@ -46,8 +46,16 @@ echo "                                                        ";
 
 pacman -S grub os-prober --noconfirm
 
-grub-install "/dev/$device"
+if [ -d /efi ]; then
+	pacman -S efibootmgr --noconfirm
+	grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
+else
+	grub-install --target=i386-pc "/dev/$device"
+fi
+
 grub-mkconfig -o /boot/grub/grub.cfg
+
+read -p "Press any button ..." tmp
 
 echo "  _    _                  _____             __ _        ";
 echo " | |  | |                / ____|           / _(_)       ";
