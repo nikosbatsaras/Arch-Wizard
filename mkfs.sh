@@ -43,7 +43,8 @@ then
 
 			mount "/dev/${device}3" /mnt/home
 		fi
-	else
+	elif [ "$table_type" = "gpt" ]
+	then
 		if [[ "$device" =~ ^nvme.*$ ]]
 		then
 			mkfs.ext4 -F "/dev/${device}p2"
@@ -65,7 +66,8 @@ then
 			mount "/dev/${device}4" /mnt/home
 		fi
 	fi
-else
+elif [ "$boot_type" = "uefi" ]
+then
 	if [[ "$device" =~ ^nvme.*$ ]]
 	then
 		mkfs.fat -F 32 "/dev/${device}p1"

@@ -44,7 +44,8 @@ then
 			mkswap "/dev/${device}2"
 			swapon "/dev/${device}2"
 		fi
-	else
+	elif [ "$table_type" = "gpt" ]
+	then
 		swap_size=$(echo "${root_size} + 1" | bc)
 		home_size=$(echo "${swap_size} + ${home_size}" | bc)
 
@@ -67,7 +68,8 @@ then
 			swapon "/dev/${device}3"
 		fi
 	fi
-else
+elif [ "$boot_type" = "uefi" ]
+then
 	swap_size=$(echo "${root_size} + 1" | bc)
 	home_size=$(echo "${swap_size} + ${home_size}" | bc)
 
