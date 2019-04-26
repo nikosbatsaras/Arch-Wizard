@@ -26,22 +26,7 @@ Before proceeding:
 - You need an MBR (dos) partition table (no GPT support yet)
 - The script automatically partitions the device you specify
 - Ext4 is used as the filesystem of the new partition
-- **Make sure your partition numbers are contiguous**
-
-Example lsblk output should be similar to this:
-```
-sda
-└─sda1
-└─sda2
-└─sda3
-```
-and **not** to this:
-```
-sda
-└─sda1
-└─sda2
-└─sda4
-```
+- **The installer assumes the device is empty**
 
 ## Installation
 After reading the above, if you still want to proceed:
