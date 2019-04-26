@@ -61,6 +61,8 @@ parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}G
 parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
 
 parted --script "/dev/${device}" set 1 boot on
+parted --script "/dev/${device}" set 1 root on
+parted --script "/dev/${device}" set 2 swap on
 
 if [[ "$device" =~ ^nvme.*$ ]]; then
 	mkswap "/dev/${device}p2"
@@ -139,7 +141,7 @@ arch-chroot /mnt bash chroot.sh "$username" "$password1" "$device" "$hostname"
 
 rm /mnt/chroot.sh /mnt/rice.sh /mnt/extras.sh
 
-umount /mnt
+umount -R /mnt
 
 echo "  _____           _        _ _       _   _               ";
 echo " |_   _|         | |      | | |     | | (_)              ";
