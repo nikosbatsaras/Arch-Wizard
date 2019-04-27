@@ -19,79 +19,46 @@ echo " |_|    |_|_|\___||___/\__, |___/\__\___|_| |_| |_|     ";
 echo "                        __/ |                           ";
 echo "                       |___/                            ";
 
+prefix=""
+
+if [[ "$device" =~ ^nvme.*$ ]]; then
+	prefix="p"
+fi
+
 if [ "$boot_type" = "bios" ]
 then
 	if [ "$table_type" = "mbr" ]
 	then
-		if [[ "$device" =~ ^nvme.*$ ]]
-		then
-			mkfs.ext4 -F "/dev/${device}p1"
-			mkfs.ext4 -F "/dev/${device}p3"
+		mkfs.ext4 -F "/dev/${device}${prefix}1"
+		mkfs.ext4 -F "/dev/${device}${prefix}3"
 
-			mount "/dev/${device}p1" /mnt
+		mount "/dev/${device}${prefix}1" /mnt
 
-			mkdir /mnt/home
+		mkdir /mnt/home
 
-			mount "/dev/${device}p3" /mnt/home
-		else
-			mkfs.ext4 -F "/dev/${device}1"
-			mkfs.ext4 -F "/dev/${device}3"
-
-			mount "/dev/${device}1" /mnt
-
-			mkdir /mnt/home
-
-			mount "/dev/${device}3" /mnt/home
-		fi
+		mount "/dev/${device}${prefix}3" /mnt/home
 	elif [ "$table_type" = "gpt" ]
 	then
-		if [[ "$device" =~ ^nvme.*$ ]]
-		then
-			mkfs.ext4 -F "/dev/${device}p2"
-			mkfs.ext4 -F "/dev/${device}p4"
+		mkfs.ext4 -F "/dev/${device}${prefix}2"
+		mkfs.ext4 -F "/dev/${device}${prefix}4"
 
-			mount "/dev/${device}p2" /mnt
+		mount "/dev/${device}${prefix}2" /mnt
 
-			mkdir /mnt/home
+		mkdir /mnt/home
 
-			mount "/dev/${device}p4" /mnt/home
-		else
-			mkfs.ext4 -F "/dev/${device}2"
-			mkfs.ext4 -F "/dev/${device}4"
-
-			mount "/dev/${device}2" /mnt
-
-			mkdir /mnt/home
-
-			mount "/dev/${device}4" /mnt/home
-		fi
+		mount "/dev/${device}${prefix}4" /mnt/home
 	fi
 elif [ "$boot_type" = "uefi" ]
 then
-	if [[ "$device" =~ ^nvme.*$ ]]
-	then
-		mkfs.fat -F 32 "/dev/${device}p1"
-		mkfs.ext4 -F "/dev/${device}p2"
-		mkfs.ext4 -F "/dev/${device}p4"
+	mkfs.fat -F 32 "/dev/${device}${prefix}1"
+	mkfs.ext4 -F "/dev/${device}${prefix}2"
+	mkfs.ext4 -F "/dev/${device}${prefix}4"
 
-		mount "/dev/${device}p2" /mnt
+	mount "/dev/${device}${prefix}2" /mnt
 
-		mkdir /mnt/efi
-		mkdir /mnt/home
+	mkdir /mnt/efi
+	mkdir /mnt/home
 
-		mount "/dev/${device}p1" /mnt/efi
-		mount "/dev/${device}p4" /mnt/home
-	else
-		mkfs.fat -F 32 "/dev/${device}1"
-		mkfs.ext4 -F "/dev/${device}2"
-		mkfs.ext4 -F "/dev/${device}4"
-
-		mount "/dev/${device}2" /mnt
-
-		mkdir /mnt/efi
-		mkdir /mnt/home
-
-		mount "/dev/${device}1" /mnt/efi
-		mount "/dev/${device}4" /mnt/home
-	fi
+	mount "/dev/${device}${prefix}1" /mnt/efi
+	mount "/dev/${device}${prefix}4" /mnt/home
 fi

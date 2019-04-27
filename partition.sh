@@ -21,6 +21,12 @@ echo " |_____/ \___| \_/ |_|\___\___|                           ";
 echo "                                                          ";
 echo "                                                          ";
 
+prefix=""
+
+if [[ "$device" =~ ^nvme.*$ ]]; then
+	prefix="p"
+fi
+
 if [ "$boot_type" = "bios" ]
 then
 	if [ "$table_type" = "mbr" ]
@@ -37,13 +43,8 @@ then
 		parted --script "/dev/${device}" set 1 root on
 		parted --script "/dev/${device}" set 2 swap on
 
-		if [[ "$device" =~ ^nvme.*$ ]]; then
-			mkswap "/dev/${device}p2"
-			swapon "/dev/${device}p2"
-		else
-			mkswap "/dev/${device}2"
-			swapon "/dev/${device}2"
-		fi
+		mkswap "/dev/${device}${prefix}2"
+		swapon "/dev/${device}${prefix}2"
 	elif [ "$table_type" = "gpt" ]
 	then
 		swap_size=$(echo "${root_size} + 1" | bc)
@@ -60,13 +61,8 @@ then
 		parted --script "/dev/${device}" set 2 root on
 		parted --script "/dev/${device}" set 3 swap on
 
-		if [[ "$device" =~ ^nvme.*$ ]]; then
-			mkswap "/dev/${device}p3"
-			swapon "/dev/${device}p3"
-		else
-			mkswap "/dev/${device}3"
-			swapon "/dev/${device}3"
-		fi
+		mkswap "/dev/${device}${prefix}3"
+		swapon "/dev/${device}${prefix}3"
 	fi
 elif [ "$boot_type" = "uefi" ]
 then
@@ -83,13 +79,8 @@ then
 	parted --script "/dev/${device}" set 2 root on
 	parted --script "/dev/${device}" set 3 swap on
 
-	if [[ "$device" =~ ^nvme.*$ ]]; then
-		mkswap "/dev/${device}p3"
-		swapon "/dev/${device}p3"
-	else
-		mkswap "/dev/${device}3"
-		swapon "/dev/${device}3"
-	fi
+	mkswap "/dev/${device}${prefix}3"
+	swapon "/dev/${device}${prefix}3"
 fi
 
 partprobe "/dev/$device"

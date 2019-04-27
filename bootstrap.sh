@@ -21,7 +21,15 @@ echo "Fill out some information before installation begins:"
 echo; echo; lsblk; echo; echo
 
 read -p "Installation Device: /dev/" device
-read -p "Boot (bios or uefi): "      boot_type
+
+if [ ! -b "/dev/$device" ]; then
+	echo; echo
+	echo "Invalid device."
+	echo
+	exit 1
+fi
+
+read -p "Boot (bios or uefi): " boot_type
 
 if [ ! "$boot_type" = "bios" ] && [ ! "$boot_type" = "uefi" ]
 then
@@ -44,8 +52,17 @@ then
 	fi
 fi
 
-read    -p "Root partition size in GBs (e.g. 20G): " root_size
-read    -p "Home partition size in GBs (e.g. 30G): " home_size
+read -p "Root partition size in GBs (e.g. 20G): " root_size
+read -p "Home partition size in GBs (e.g. 30G): " home_size
+
+if [ "$root_size" -le 0 ] || [ "$home_size" -le 0 ]
+then
+	echo; echo
+	echo "Invalid partition size."
+	echo
+	exit 1
+fi
+
 read    -p "Hostname: " hostname
 read    -p "Username: " username
 read -s -p "Password: " password1
@@ -59,6 +76,8 @@ then
 	echo
 	exit 1
 fi
+
+exit 1
 
 wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/partition.sh
 wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/mkfs.sh
