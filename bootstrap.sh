@@ -52,8 +52,8 @@ then
 	fi
 fi
 
-read -p "Root partition size in GBs (e.g. 20G): " root_size
-read -p "Home partition size in GBs (e.g. 30G): " home_size
+read -p "Root partition size in GBs (e.g. 20): " root_size
+read -p "Home partition size in GBs (e.g. 30): " home_size
 
 if [ "$root_size" -le 0 ] || [ "$home_size" -le 0 ]
 then
