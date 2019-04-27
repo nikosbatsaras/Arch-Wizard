@@ -77,8 +77,6 @@ then
 	exit 1
 fi
 
-exit 1
-
 wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/partition.sh
 wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/mkfs.sh
 
