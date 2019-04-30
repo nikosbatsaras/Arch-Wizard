@@ -4,7 +4,7 @@ device="$1"
 boot_type="$2"
 table_type="$3"
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  _____           _        _ _ _                        ";
 echo " |_   _|         | |      | | (_)                       ";
 echo "   | |  _ __  ___| |_ __ _| | |_ _ __   __ _    __ _    ";

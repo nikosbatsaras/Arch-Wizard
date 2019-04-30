@@ -5,7 +5,7 @@ password="$2"
 device="$3"
 hostname="$4"
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  _______ _                           ";
 echo " |__   __(_)                  ___     ";
 echo "    | |   _ _ __ ___   ___   ( _ )    ";
@@ -37,7 +37,7 @@ echo "$hostname" > /etc/hostname
 
 mv /mirrorlist /etc/pacman.d/mirrorlist
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  ____              _   _                 _             ";
 echo " |  _ \            | | | |               | |            ";
 echo " | |_) | ___   ___ | |_| | ___   __ _  __| | ___ _ __   ";
@@ -59,7 +59,7 @@ fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  _    _                  _____             __ _        ";
 echo " | |  | |                / ____|           / _(_)       ";
 echo " | |  | |___  ___ _ __  | |     ___  _ __ | |_ _  __ _  ";
@@ -78,7 +78,7 @@ echo "$username:$password" | chpasswd
 
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  _____            _    _              ";
 echo " |  __ \          | |  | |             ";
 echo " | |  | | ___  ___| | _| |_ ___  _ __  ";

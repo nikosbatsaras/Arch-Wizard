@@ -6,7 +6,7 @@ table_type="$3"
 root_size="$4"
 home_size="$5"
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  _____           _   _ _   _             _               ";
 echo " |  __ \         | | (_) | (_)           (_)              ";
 echo " | |__) |_ _ _ __| |_ _| |_ _  ___  _ __  _ _ __   __ _   ";

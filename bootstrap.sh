@@ -2,7 +2,7 @@
 
 clear
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "                    _               __          ___                  _   ";
 echo "     /\            | |              \ \        / (_)                | |  ";
 echo "    /  \   _ __ ___| |__    ______   \ \  /\  / / _ ______ _ _ __ __| |  ";
@@ -89,7 +89,7 @@ wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/mkfs.sh
 bash partition.sh "$device" "$boot_type" "$table_type" "$root_size" "$home_size"
 bash mkfs.sh      "$device" "$boot_type" "$table_type"
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  ____              _       _                    ";
 echo " |  _ \            | |     | |                   ";
 echo " | |_) | ___   ___ | |_ ___| |_ _ __ __ _ _ __   ";
@@ -124,7 +124,7 @@ rm /mnt/chroot.sh /mnt/rice.sh /mnt/extras.sh
 
 umount -R /mnt
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  _____           _        _ _       _   _               ";
 echo " |_   _|         | |      | | |     | | (_)              ";
 echo "   | |  _ __  ___| |_ __ _| | | __ _| |_ _  ___  _ __    ";

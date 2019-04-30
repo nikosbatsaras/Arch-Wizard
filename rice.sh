@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo -e "\e[1;32m"
+echo -e "\e[32m"
 echo "  _____  _      _               _  ";
 echo " |  __ \(_)    (_)             | | ";
 echo " | |__) |_  ___ _ _ __   __ _  | | ";
