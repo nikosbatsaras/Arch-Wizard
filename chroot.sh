@@ -5,7 +5,7 @@ password="$2"
 device="$3"
 hostname="$4"
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  _______ _                           ";
 echo " |__   __(_)                  ___     ";
 echo "    | |   _ _ __ ___   ___   ( _ )    ";
@@ -20,7 +20,7 @@ echo " | |___| (_) | (_| (_| | |  __/\__ \\ ";
 echo " |______\___/ \___\__,_|_|\___||___/  ";
 echo "                                      ";
 echo "                                      ";
-echo -e "${NC}"
+echo -e "\e[0m"
 
 ln -sf /usr/share/zoneinfo/Europe/Athens /etc/localtime 
 
@@ -37,7 +37,7 @@ echo "$hostname" > /etc/hostname
 
 mv /mirrorlist /etc/pacman.d/mirrorlist
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  ____              _   _                 _             ";
 echo " |  _ \            | | | |               | |            ";
 echo " | |_) | ___   ___ | |_| | ___   __ _  __| | ___ _ __   ";
@@ -46,7 +46,7 @@ echo " | |_) | (_) | (_) | |_| | (_) | (_| | (_| |  __/ |     ";
 echo " |____/ \___/ \___/ \__|_|\___/ \__,_|\__,_|\___|_|     ";
 echo "                                                        ";
 echo "                                                        ";
-echo -e "${NC}"
+echo -e "\e[0m"
 
 pacman -S grub os-prober --noconfirm
 
@@ -59,7 +59,7 @@ fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  _    _                  _____             __ _        ";
 echo " | |  | |                / ____|           / _(_)       ";
 echo " | |  | |___  ___ _ __  | |     ___  _ __ | |_ _  __ _  ";
@@ -68,7 +68,7 @@ echo " | |__| \__ \  __/ |    | |___| (_) | | | | | | | (_| | ";
 echo "  \____/|___/\___|_|     \_____\___/|_| |_|_| |_|\__, | ";
 echo "                                                  __/ | ";
 echo "                                                 |___/  ";
-echo -e "${NC}"
+echo -e "\e[0m"
 
 echo "root:$password" | chpasswd
 
@@ -78,7 +78,7 @@ echo "$username:$password" | chpasswd
 
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  _____            _    _              ";
 echo " |  __ \          | |  | |             ";
 echo " | |  | | ___  ___| | _| |_ ___  _ __  ";
@@ -93,7 +93,7 @@ echo "  ____) |  __/ |_| |_| | |_) |         ";
 echo " |_____/ \___|\__|\__,_| .__/          ";
 echo "                       | |             ";
 echo "                       |_|             ";
-echo -e "${NC}"
+echo -e "\e[0m"
 
 pacman -S xorg-server xorg-xinit     --noconfirm
 pacman -S wget dialog wpa_supplicant --noconfirm

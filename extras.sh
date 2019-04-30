@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  ______      _                  ";
 echo " |  ____|    | |                 ";
 echo " | |__  __  _| |_ _ __ __ _ ___  ";
@@ -9,7 +9,7 @@ echo " | |____ >  <| |_| | | (_| \__ \\";
 echo " |______/_/\_\\__|_|  \__,_|___/ ";
 echo "                                 ";
 echo "                                 ";
-echo -e "${NC}"
+echo -e "\e[0m"
 
 extras=(                                      \
 	firefox thunderbird                   \

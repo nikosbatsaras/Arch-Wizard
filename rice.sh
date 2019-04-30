@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  _____  _      _               _  ";
 echo " |  __ \(_)    (_)             | | ";
 echo " | |__) |_  ___ _ _ __   __ _  | | ";
@@ -9,7 +9,7 @@ echo " | | \ \| | (__| | | | | (_| | |_| ";
 echo " |_|  \_\_|\___|_|_| |_|\__, | (_) ";
 echo "                         __/ |     ";
 echo "                        |___/      ";
-echo -e "${NC}"
+echo -e "\e[0m"
 
 repo='https://raw.githubusercontent.com/nikosbatsaras/dotfiles/master'
 

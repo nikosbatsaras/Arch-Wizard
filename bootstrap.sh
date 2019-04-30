@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 
-export Red='\e[1;31m'    # Red
-export Green='\e[1;32m'  # Green
-export NC='\e[0m'        # No Color
-
 clear
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "                    _               __          ___                  _   ";
 echo "     /\            | |              \ \        / (_)                | |  ";
 echo "    /  \   _ __ ___| |__    ______   \ \  /\  / / _ ______ _ _ __ __| |  ";
@@ -19,7 +15,7 @@ echo
 echo "              This script will install Arch Linux and apply              ";
 echo "        configurations found at: https://github.com/nikosbatsaras        ";
 echo
-echo -e "${NC}"
+echo -e "\e[0m"
 echo
 echo "Fill out some information before installation begins:"
 
@@ -93,7 +89,7 @@ wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/mkfs.sh
 bash partition.sh "$device" "$boot_type" "$table_type" "$root_size" "$home_size"
 bash mkfs.sh      "$device" "$boot_type" "$table_type"
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  ____              _       _                    ";
 echo " |  _ \            | |     | |                   ";
 echo " | |_) | ___   ___ | |_ ___| |_ _ __ __ _ _ __   ";
@@ -102,7 +98,7 @@ echo " | |_) | (_) | (_) | |_\__ \ |_| | | (_| | |_) | ";
 echo " |____/ \___/ \___/ \__|___/\__|_|  \__,_| .__/  ";
 echo "                                         | |     ";
 echo "                                         |_|     ";
-echo -e "${NC}"
+echo -e "\e[0m"
 
 sed -i '7iServer = http://ftp.otenet.gr/linux/archlinux/$repo/os/$arch'               /etc/pacman.d/mirrorlist
 sed -i '7iServer = http://foss.aueb.gr/mirrors/linux/archlinux/$repo/os/$arch'        /etc/pacman.d/mirrorlist
@@ -128,7 +124,7 @@ rm /mnt/chroot.sh /mnt/rice.sh /mnt/extras.sh
 
 umount -R /mnt
 
-echo -e "${Green}"
+echo -e "\e[1;32m"
 echo "  _____           _        _ _       _   _               ";
 echo " |_   _|         | |      | | |     | | (_)              ";
 echo "   | |  _ __  ___| |_ __ _| | | __ _| |_ _  ___  _ __    ";
@@ -145,4 +141,4 @@ echo "                       | |                               ";
 echo "                       |_|                               ";
 
 echo; echo "  You can now reboot ..."; echo
-echo -e "${NC}"
+echo -e "\e[0m"
