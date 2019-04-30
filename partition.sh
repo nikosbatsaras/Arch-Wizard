@@ -22,7 +22,7 @@ echo " |_____/ \___| \_/ |_|\___\___|                           ";
 echo "                                                          ";
 echo "                                                          ";
 echo -e "${NC}"
-exit 1
+
 prefix=""
 
 if [[ "$device" =~ ^nvme.*$ ]]; then
