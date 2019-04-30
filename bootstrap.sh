@@ -24,10 +24,10 @@ echo; echo; lsblk; echo; echo
 read -p $'\e[32mInstallation Device:\e[0m /dev/' device
 
 if [ ! -b "/dev/$device" ]; then
-	echo; echo -e "${Red}"
+	echo; echo -e "\e[1;31m"
 	echo "Invalid device."
 	echo
-	echo -e "${NC}"
+	echo -e "\e[0m"
 	exit 1
 fi
 
@@ -35,10 +35,10 @@ read -p $'\e[32mBoot (bios or uefi):\e[0m ' boot_type
 
 if [ ! "$boot_type" = "bios" ] && [ ! "$boot_type" = "uefi" ]
 then
-	echo; echo -e "${Red}"
+	echo; echo -e "\e[1;31m"
 	echo "Invalid boot type."
 	echo
-	echo -e "${NC}"
+	echo -e "\e[0m"
 	exit 1
 fi
 
@@ -48,10 +48,10 @@ then
 
 	if [ ! "$table_type" = "mbr" ] && [ ! "$table_type" = "gpt" ]
 	then
-		echo; echo -e "${Red}"
+		echo; echo -e "\e[1;31m"
 		echo "Invalid partition table type."
 		echo
-		echo -e "${NC}"
+		echo -e "\e[0m"
 		exit 1
 	fi
 fi
@@ -61,10 +61,10 @@ read -p $'\e[32mHome partition size in GBs (e.g. 30):\e[0m ' home_size
 
 if [ "$root_size" -le 0 ] || [ "$home_size" -le 0 ]
 then
-	echo; echo -e "${Red}"
+	echo; echo -e "\e[1;31m"
 	echo "Invalid partition size."
 	echo
-	echo -e "${NC}"
+	echo -e "\e[0m"
 	exit 1
 fi
 
@@ -76,10 +76,10 @@ read -s -p $'\e[32mRetype Password:\e[0m ' password2
 
 if [ ! "$password1" = "$password2" ]
 then
-	echo; echo -e "${Red}"
+	echo; echo -e "\e[1;31m"
 	echo "Passwords do not match."
 	echo
-	echo -e "${NC}"
+	echo -e "\e[0m"
 	exit 1
 fi
 
