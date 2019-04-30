@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
+export Red='\e[1;31m'    # Red
+export Green='\e[1;32m'  # Green
+export NC='\e[0m'        # No Color
+
 clear
 
+echo -e "${Green}"
 echo "                    _               __          ___                  _   ";
 echo "     /\            | |              \ \        / (_)                | |  ";
 echo "    /  \   _ __ ___| |__    ______   \ \  /\  / / _ ______ _ _ __ __| |  ";
@@ -14,66 +19,71 @@ echo
 echo "              This script will install Arch Linux and apply              ";
 echo "        configurations found at: https://github.com/nikosbatsaras        ";
 echo
-echo
+echo -e "${NC}"
 echo
 echo "Fill out some information before installation begins:"
 
 echo; echo; lsblk; echo; echo
 
-read -p "Installation Device: /dev/" device
+read -p $'\e[32mInstallation Device:\e[0m /dev/' device
 
 if [ ! -b "/dev/$device" ]; then
-	echo; echo
+	echo; echo -e "${Red}"
 	echo "Invalid device."
 	echo
+	echo -e "${NC}"
 	exit 1
 fi
 
-read -p "Boot (bios or uefi): " boot_type
+read -p $'\e[32mBoot (bios or uefi):\e[0m ' boot_type
 
 if [ ! "$boot_type" = "bios" ] && [ ! "$boot_type" = "uefi" ]
 then
-	echo; echo
+	echo; echo -e "${Red}"
 	echo "Invalid boot type."
 	echo
+	echo -e "${NC}"
 	exit 1
 fi
 
 if [ "$boot_type" = "bios" ]
 then
-	read -p "Partition table type (mbr or gpt): " table_type
+	read -p $'\e[32mPartition table type (mbr or gpt):\e[0m ' table_type
 
 	if [ ! "$table_type" = "mbr" ] && [ ! "$table_type" = "gpt" ]
 	then
-		echo; echo
+		echo; echo -e "${Red}"
 		echo "Invalid partition table type."
 		echo
+		echo -e "${NC}"
 		exit 1
 	fi
 fi
 
-read -p "Root partition size in GBs (e.g. 20): " root_size
-read -p "Home partition size in GBs (e.g. 30): " home_size
+read -p $'\e[32mRoot partition size in GBs (e.g. 20):\e[0m ' root_size
+read -p $'\e[32mHome partition size in GBs (e.g. 30):\e[0m ' home_size
 
 if [ "$root_size" -le 0 ] || [ "$home_size" -le 0 ]
 then
-	echo; echo
+	echo; echo -e "${Red}"
 	echo "Invalid partition size."
 	echo
+	echo -e "${NC}"
 	exit 1
 fi
 
-read    -p "Hostname: " hostname
-read    -p "Username: " username
-read -s -p "Password: " password1
+read    -p $'\e[32mHostname:\e[0m ' hostname
+read    -p $'\e[32mUsername:\e[0m ' username
+read -s -p $'\e[32mPassword:\e[0m ' password1
 echo
-read -s -p "Retype Password: " password2
+read -s -p $'\e[32mRetype Password:\e[0m ' password2
 
 if [ ! "$password1" = "$password2" ]
 then
-	echo; echo
+	echo; echo -e "${Red}"
 	echo "Passwords do not match."
 	echo
+	echo -e "${NC}"
 	exit 1
 fi
 
@@ -83,6 +93,7 @@ wget https://raw.githubusercontent.com/nikosbatsaras/Arch-Wizard/master/mkfs.sh
 bash partition.sh "$device" "$boot_type" "$table_type" "$root_size" "$home_size"
 bash mkfs.sh      "$device" "$boot_type" "$table_type"
 
+echo -e "${Green}"
 echo "  ____              _       _                    ";
 echo " |  _ \            | |     | |                   ";
 echo " | |_) | ___   ___ | |_ ___| |_ _ __ __ _ _ __   ";
@@ -91,6 +102,7 @@ echo " | |_) | (_) | (_) | |_\__ \ |_| | | (_| | |_) | ";
 echo " |____/ \___/ \___/ \__|___/\__|_|  \__,_| .__/  ";
 echo "                                         | |     ";
 echo "                                         |_|     ";
+echo -e "${NC}"
 
 sed -i '7iServer = http://ftp.otenet.gr/linux/archlinux/$repo/os/$arch'               /etc/pacman.d/mirrorlist
 sed -i '7iServer = http://foss.aueb.gr/mirrors/linux/archlinux/$repo/os/$arch'        /etc/pacman.d/mirrorlist
@@ -116,6 +128,7 @@ rm /mnt/chroot.sh /mnt/rice.sh /mnt/extras.sh
 
 umount -R /mnt
 
+echo -e "${Green}"
 echo "  _____           _        _ _       _   _               ";
 echo " |_   _|         | |      | | |     | | (_)              ";
 echo "   | |  _ __  ___| |_ __ _| | | __ _| |_ _  ___  _ __    ";
@@ -132,3 +145,4 @@ echo "                       | |                               ";
 echo "                       |_|                               ";
 
 echo; echo "  You can now reboot ..."; echo
+echo -e "${NC}"

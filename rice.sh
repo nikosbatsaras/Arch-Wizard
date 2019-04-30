@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+echo -e "${Green}"
 echo "  _____  _      _               _  ";
 echo " |  __ \(_)    (_)             | | ";
 echo " | |__) |_  ___ _ _ __   __ _  | | ";
@@ -8,6 +9,7 @@ echo " | | \ \| | (__| | | | | (_| | |_| ";
 echo " |_|  \_\_|\___|_|_| |_|\__, | (_) ";
 echo "                         __/ |     ";
 echo "                        |___/      ";
+echo -e "${NC}"
 
 repo='https://raw.githubusercontent.com/nikosbatsaras/dotfiles/master'
 
