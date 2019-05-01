@@ -41,10 +41,6 @@ then
 		parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
 		parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
 
-		parted --script "/dev/${device}" name 1 rootfs
-		parted --script "/dev/${device}" name 2 swap
-		parted --script "/dev/${device}" name 3 homefs
-
 		parted --script "/dev/${device}" set 1 boot on
 		parted --script "/dev/${device}" set 1 root on
 		parted --script "/dev/${device}" set 2 swap on
