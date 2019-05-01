@@ -39,6 +39,7 @@ then
 		mkdir /mnt/home
 
 		mount "/dev/${device}${prefix}3" /mnt/home
+
 	elif [ "$table_type" = "gpt" ]
 	then
 		mkfs.ext4 -F "/dev/${device}${prefix}2"
@@ -50,6 +51,7 @@ then
 
 		mount "/dev/${device}${prefix}4" /mnt/home
 	fi
+
 elif [ "$boot_type" = "uefi" ]
 then
 	mkfs.fat -F 32 "/dev/${device}${prefix}1"
