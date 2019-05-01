@@ -41,12 +41,17 @@ then
 		parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
 		parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
 
+		parted --script "/dev/${device}" name 1 rootfs
+		parted --script "/dev/${device}" name 2 swap
+		parted --script "/dev/${device}" name 3 homefs
+
 		parted --script "/dev/${device}" set 1 boot on
 		parted --script "/dev/${device}" set 1 root on
 		parted --script "/dev/${device}" set 2 swap on
 
 		mkswap "/dev/${device}${prefix}2"
 		swapon "/dev/${device}${prefix}2"
+
 	elif [ "$table_type" = "gpt" ]
 	then
 		swap_size=$(echo "${root_size} + 1" | bc)
@@ -58,6 +63,11 @@ then
 		parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
 		parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
 
+		parted --script "/dev/${device}" name 1 bios_grub
+		parted --script "/dev/${device}" name 2 rootfs
+		parted --script "/dev/${device}" name 3 swap
+		parted --script "/dev/${device}" name 4 homefs
+
 		parted --script "/dev/${device}" set 1 bios_grub on
 		parted --script "/dev/${device}" set 2 boot on
 		parted --script "/dev/${device}" set 2 root on
@@ -66,6 +76,7 @@ then
 		mkswap "/dev/${device}${prefix}3"
 		swapon "/dev/${device}${prefix}3"
 	fi
+
 elif [ "$boot_type" = "uefi" ]
 then
 	swap_size=$(echo "${root_size} + 1" | bc)
@@ -76,6 +87,11 @@ then
 	parted --script "/dev/${device}" mkpart primary            "1GiB" "${root_size}GiB"
 	parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
 	parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
+
+	parted --script "/dev/${device}" name 1 efi
+	parted --script "/dev/${device}" name 2 rootfs
+	parted --script "/dev/${device}" name 3 swap
+	parted --script "/dev/${device}" name 4 homefs
 
 	parted --script "/dev/${device}" set 2 boot on
 	parted --script "/dev/${device}" set 2 root on
