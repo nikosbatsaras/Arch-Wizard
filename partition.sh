@@ -89,7 +89,7 @@ then
 	parted --script "/dev/${device}" name 3 swap
 	parted --script "/dev/${device}" name 4 homefs
 
-	parted --script "/dev/${device}" set 2 boot on
+	parted --script "/dev/${device}" set 1 boot on
 	parted --script "/dev/${device}" set 2 root on
 	parted --script "/dev/${device}" set 3 swap on
 
