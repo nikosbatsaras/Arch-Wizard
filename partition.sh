@@ -59,7 +59,7 @@ then
 		parted --script "/dev/${device}" mkpart primary "${root_size}GiB" "${swap_size}GiB"
 		parted --script "/dev/${device}" mkpart primary "${swap_size}GiB" "${home_size}GiB"
 
-		parted --script "/dev/${device}" name 1 bios_grub
+		parted --script "/dev/${device}" name 1 grub
 		parted --script "/dev/${device}" name 2 rootfs
 		parted --script "/dev/${device}" name 3 swap
 		parted --script "/dev/${device}" name 4 homefs
