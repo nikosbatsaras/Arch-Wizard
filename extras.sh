@@ -16,7 +16,7 @@ extras=(                                      \
 	evince nautilus sxiv                  \
 	qbittorrent                           \
 	zip unzip                             \
-	openssh openvpn                       \
+	openssh openvpn sshfs                 \
 	arandr xorg-xprop                     \
 	dmenu bash-completion                 \
 	bc htop ctags cdrtools                \
