@@ -108,7 +108,7 @@ sed -i '12iServer = http://mi.mirror.garr.it/mirrors/archlinux/$repo/os/$arch'  
 sed -i '13iServer = http://ftp.hosteurope.de/mirror/ftp.archlinux.org/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sed -i '14iServer = http://mirror.cyberbits.eu/archlinux/$repo/os/$arch'              /etc/pacman.d/mirrorlist
 
-pacstrap /mnt base base-devel
+pacstrap /mnt base linux linux-firmware base-devel
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
